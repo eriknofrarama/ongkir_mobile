@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:ongkir/app/modules/home/province_model.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -17,235 +20,44 @@ class HomeView extends GetView<HomeController> {
       body: ListView(
         padding: EdgeInsets.all(20),
         children: [
-          DropdownSearch<String>(
-            popupProps: PopupProps.menu(
-              showSearchBox: true,
+          Text(
+            "Pilih Provinsi",
+            style: TextStyle(fontSize: 16),
+          ),
+          DropdownSearch<Province>(
+            // dropdownSearchDecoration: InputDecoration(labelText: "Name"),
+            asyncItems: (String filter) async {
+              Uri url =
+                  Uri.parse("https://api.rajaongkir.com/starter/province");
+              try {
+                final response = await http.get(
+                  url,
+                  headers: {
+                    "key": "5f7da4bea53f821ba98e4e568c6afc92",
+                  },
+                );
 
-              // disabledItemFn: (String s) => s.startsWith('S'),
-            ),
-            items: [
-              "Aceh",
-              "Sumatera Utara",
-              "Sumatera Barat",
-              "Riau",
-              "Jambi",
-              "Bengkulu",
-              "Lampung",
-              "Bangka Belitung",
-              "Kepulauan Riau",
-              "DKI Jakarta",
-              "Jawa Barat",
-              "Jawa Tengah",
-              "Jawa Timur",
-              "DI Yogyakarta",
-              "Banten",
-              "Bali",
-              "Nusa Tenggara Barat",
-              "Nusa Tenggara Timur",
-              "Kalimantan Barat",
-              "Kalimantan Tengah",
-              "Kalimantan Selatan",
-              "Kalimantan Timur",
-              "Kalimantan Utara",
-              "Sulawesi Utara",
-              "Sulawesi Tengah",
-              "Sulawesi Selatan",
-              "Sulawesi Tenggara",
-              "Gorontalo",
-              "Maluku",
-              "Maluku Utara",
-              "Papua Barat",
-              "Papua"
-            ],
-            dropdownDecoratorProps: DropDownDecoratorProps(
-              dropdownSearchDecoration: InputDecoration(
-                labelText: "Provinsi Asal",
-                hintText: "Pilih Provinsi Asal",
-              ),
-            ),
-            onChanged: print,
-          ),
-          // DropdownSearch<String>.multiSelection(
-          //   items: [
-          //     "Aceh",
-          //     "Sumatera Utara",
-          //     "Sumatera Barat",
-          //     "Riau",
-          //     "Jambi",
-          //     "Bengkulu",
-          //     "Lampung",
-          //     "Bangka Belitung",
-          //     "Kepulauan Riau",
-          //     "DKI Jakarta",
-          //     "Jawa Barat",
-          //     "Jawa Tengah",
-          //     "Jawa Timur",
-          //     "DI Yogyakarta",
-          //     "Banten",
-          //     "Bali",
-          //     "Nusa Tenggara Barat",
-          //     "Nusa Tenggara Timur",
-          //     "Kalimantan Barat",
-          //     "Kalimantan Tengah",
-          //     "Kalimantan Selatan",
-          //     "Kalimantan Timur",
-          //     "Kalimantan Utara",
-          //     "Sulawesi Utara",
-          //     "Sulawesi Tengah",
-          //     "Sulawesi Selatan",
-          //     "Sulawesi Tenggara",
-          //     "Gorontalo",
-          //     "Maluku",
-          //     "Maluku Utara",
-          //     "Papua Barat",
-          //     "Papua"
-          //   ],
-          //   popupProps: PopupPropsMultiSelection.menu(
-          //     showSelectedItems: true,
-          //     disabledItemFn: (String s) => s.startsWith('I'),
-          //   ),
-          //   onChanged: print,
-          // )
-          DropdownSearch<String>(
-            popupProps: PopupProps.menu(
-              showSearchBox: true,
-              // disabledItemFn: (String s) => s.startsWith('S'),
-            ),
-            items: [
-              "Aceh",
-              "Sumatera Utara",
-              "Sumatera Barat",
-              "Riau",
-              "Jambi",
-              "Bengkulu",
-              "Lampung",
-              "Bangka Belitung",
-              "Kepulauan Riau",
-              "DKI Jakarta",
-              "Jawa Barat",
-              "Jawa Tengah",
-              "Jawa Timur",
-              "DI Yogyakarta",
-              "Banten",
-              "Bali",
-              "Nusa Tenggara Barat",
-              "Nusa Tenggara Timur",
-              "Kalimantan Barat",
-              "Kalimantan Tengah",
-              "Kalimantan Selatan",
-              "Kalimantan Timur",
-              "Kalimantan Utara",
-              "Sulawesi Utara",
-              "Sulawesi Tengah",
-              "Sulawesi Selatan",
-              "Sulawesi Tenggara",
-              "Gorontalo",
-              "Maluku",
-              "Maluku Utara",
-              "Papua Barat",
-              "Papua"
-            ],
-            dropdownDecoratorProps: DropDownDecoratorProps(
-              dropdownSearchDecoration: InputDecoration(
-                labelText: "Provinsi Tujuan",
-                hintText: "Pilih Provinsi Tujuan",
-              ),
-            ),
-            onChanged: print,
-          ),
-          DropdownSearch<String>(
-            popupProps: PopupProps.menu(
-              showSearchBox: true,
-              // disabledItemFn: (String s) => s.startsWith('S'),
-            ),
-            items: [
-              "Aceh",
-              "Sumatera Utara",
-              "Sumatera Barat",
-              "Riau",
-              "Jambi",
-              "Bengkulu",
-              "Lampung",
-              "Bangka Belitung",
-              "Kepulauan Riau",
-              "DKI Jakarta",
-              "Jawa Barat",
-              "Jawa Tengah",
-              "Jawa Timur",
-              "DI Yogyakarta",
-              "Banten",
-              "Bali",
-              "Nusa Tenggara Barat",
-              "Nusa Tenggara Timur",
-              "Kalimantan Barat",
-              "Kalimantan Tengah",
-              "Kalimantan Selatan",
-              "Kalimantan Timur",
-              "Kalimantan Utara",
-              "Sulawesi Utara",
-              "Sulawesi Tengah",
-              "Sulawesi Selatan",
-              "Sulawesi Tenggara",
-              "Gorontalo",
-              "Maluku",
-              "Maluku Utara",
-              "Papua Barat",
-              "Papua"
-            ],
-            dropdownDecoratorProps: DropDownDecoratorProps(
-              dropdownSearchDecoration: InputDecoration(
-                labelText: "Kota Asal",
-                hintText: "Pilih Kota Asal",
-              ),
-            ),
-            onChanged: print,
-          ),
-          DropdownSearch<String>(
-            popupProps: PopupProps.menu(
-              showSearchBox: true,
-              // disabledItemFn: (String s) => s.startsWith('S'),
-            ),
-            items: [
-              "Aceh",
-              "Sumatera Utara",
-              "Sumatera Barat",
-              "Riau",
-              "Jambi",
-              "Bengkulu",
-              "Lampung",
-              "Bangka Belitung",
-              "Kepulauan Riau",
-              "DKI Jakarta",
-              "Jawa Barat",
-              "Jawa Tengah",
-              "Jawa Timur",
-              "DI Yogyakarta",
-              "Banten",
-              "Bali",
-              "Nusa Tenggara Barat",
-              "Nusa Tenggara Timur",
-              "Kalimantan Barat",
-              "Kalimantan Tengah",
-              "Kalimantan Selatan",
-              "Kalimantan Timur",
-              "Kalimantan Utara",
-              "Sulawesi Utara",
-              "Sulawesi Tengah",
-              "Sulawesi Selatan",
-              "Sulawesi Tenggara",
-              "Gorontalo",
-              "Maluku",
-              "Maluku Utara",
-              "Papua Barat",
-              "Papua"
-            ],
-            dropdownDecoratorProps: DropDownDecoratorProps(
-              dropdownSearchDecoration: InputDecoration(
-                labelText: "Kota Asal",
-                hintText: "Pilih Kota Asal",
-              ),
-            ),
-            onChanged: print,
+                var data = json.decode(response.body) as Map<String, dynamic>;
+                print(data);
+
+                var statusCode = data["rajaongkir"]["status"]["code"];
+
+                if (statusCode != 200) {
+                  throw data["rajaongkir"]["status"]["description"];
+                }
+
+                var listAllProvince =
+                    data["rajaongkir"]["results"] as List<dynamic>;
+
+                var models = Province.fromJsonList(listAllProvince);
+                return models;
+              } catch (err) {
+                print(err);
+                return List<Province>.empty();
+              }
+            },
+            onChanged: (Province? value) => print(value?.province),
+            itemAsString: (Province? province) => province?.province ?? "",
           ),
         ],
       ),
